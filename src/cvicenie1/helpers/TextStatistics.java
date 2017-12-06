@@ -6,6 +6,7 @@
 package cvicenie1.helpers;
 import java.util.Map;
 import java.util.HashMap;
+import java.lang.Math;
 /**
  *
  * @author illuSion
@@ -35,5 +36,31 @@ public class TextStatistics {
             }
         }
         return map;
+    }
+    public static double indexOfCoincidence(Double[] absoluteFreq, int textLength)
+    {
+        Double IOC = 0.0;
+        for(int i = 0; i < absoluteFreq.length; i++) 
+        {
+            IOC += (absoluteFreq[i]/textLength) * ((absoluteFreq[i]- 1)/(textLength - 1));
+        }
+        
+        return IOC;
+    }
+    
+    public static double entropy(Double[] p)
+    {
+       
+        double res = 0;
+        
+        for (double pi : p) {
+            res += pi * log2(pi);
+        }
+        
+        return -res;
+    }  
+    
+    public static double log2(double x) {
+        return java.lang.Math.log(x) / java.lang.Math.log(2);
     }
 }

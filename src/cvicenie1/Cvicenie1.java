@@ -20,6 +20,7 @@ import cvicenie1.cipher.TranspozitionCipher.*;
 import cvicenie1.cipher.PolyAlphabeticKey.*;
 import cvicenie1.cipher.PolyAlphabeticCipher.*;
 import cvicenie1.helpers.TextStatistics.*;
+import cvicenie1.helpers.Language.*;
 
 import java.util.Map;
 import java.util.HashMap;
@@ -212,7 +213,7 @@ public class Cvicenie1 {
         
 
         PolyAlphabeticCipher c = new PolyAlphabeticCipher();
-        String ct = c.encrypt("mynameiswhomynameiswhyslimshady", key);
+        String ct = c.encrypt("testujemesifrovanie", key);
         System.out.println(ct);
         String ot = c.decrypt(ct, key);
         System.out.println(ot);*/
@@ -245,11 +246,19 @@ public class Cvicenie1 {
        
         OT_Svk = Text.convertToTSA(OT_Svk, false);
         //System.out.println(OT_Svk);
-        Map<String, Double> ngram = TextStatistics.readNgram(OT_Svk, 1, true);
+      /*  Map<String, Double> ngram = TextStatistics.readNgram(OT_Svk, 1, false);
+        Double[] freq = new Double[ngram.size()];
+        int i = 0;
+        
         for(Map.Entry e: ngram.entrySet())
         {
-            System.out.println(e.getKey() + " " + e.getValue());
-        }
+            freq[i] =(Double) e.getValue();
+            //System.out.println(e.getKey() + " " + e.getValue());
+            i++;
+        }*/
+        
+        //System.out.println(TextStatistics.indexOfCoincidence(freq,OT_Svk.length()));
+        //System.out.println(Language.guessLanguage(OT_Svk));
     }
 
 }
