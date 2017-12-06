@@ -110,7 +110,7 @@ public class Text {
     public static String convertToTSA(String in, boolean keepSpace) {
         in = in.toLowerCase();
         String output = in;
-        Normalizer.normalize(output, Normalizer.Form.NFD);
+        output = Normalizer.normalize(output, Normalizer.Form.NFD);
         if (keepSpace)
             output = output.replaceAll("[^a-z ]", "");
         else 

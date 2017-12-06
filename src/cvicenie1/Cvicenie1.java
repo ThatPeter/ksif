@@ -19,6 +19,10 @@ import cvicenie1.cipher.TranspozitionKey.*;
 import cvicenie1.cipher.TranspozitionCipher.*;
 import cvicenie1.cipher.PolyAlphabeticKey.*;
 import cvicenie1.cipher.PolyAlphabeticCipher.*;
+import cvicenie1.helpers.TextStatistics.*;
+
+import java.util.Map;
+import java.util.HashMap;
 
 public class Cvicenie1 {
 
@@ -178,7 +182,7 @@ public class Cvicenie1 {
         }*/
         // char znaky[] = {'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'};
         //String str = "Neviem. co je, toto xD.";
-        //str = Text.convertToTSA(str, true);
+        //str = Text.convertToTSA(str, false);
         //System.out.println(str);
       /*  Character[] perm = {'a','b','c','d','e','f','g','h','i','j','k','l','m'
                             ,'n','o','p','q','r','s','t','u','v','w','x','y','z'};
@@ -202,7 +206,7 @@ public class Cvicenie1 {
         TranspozitionCipher c = new TranspozitionCipher();
         System.out.println(c.encrypt("golotusmnfyibsmsbmbm", k));
         System.out.println(c.decrypt(c.encrypt("golotusmnfyibsmsbmbm", k), k));*/
-       
+       /*
         char[] pwd = {'h','e','s','l','o'};
         PolyAlphabeticKey key = new PolyAlphabeticKey(pwd);
         
@@ -211,7 +215,41 @@ public class Cvicenie1 {
         String ct = c.encrypt("mynameiswhomynameiswhyslimshady", key);
         System.out.println(ct);
         String ot = c.decrypt(ct, key);
-         System.out.println(ot);
+        System.out.println(ot);*/
+       /* Map<String, Double> ngram = TextStatistics.readNgram("ahojjjjjjj", 3, true);
+        for(Map.Entry e: ngram.entrySet())
+        {
+            System.out.println(e.getKey() + " " + e.getValue());
+        }*/
+       String OT_Svk = "Ďalší významný rozvoj v kryptografii nastal začiatkom 20. "
+               + "storočia, keď došlo k vynájdeniu a zavedeniu telegrafu. V roku "
+               + "1917 bol vynájdený prvý bezpečný kryptosystém Vernam, ktorý bol"
+               + " postavený na prúdovej šifre. Obdobie do konca 50-tych rokov je "
+               + "charakteristické hlavne používaním zložitých mechanických a "
+               + "elektromechanických šifrovacích strojov. Veľký pokrok v kryptografii "
+               + "nastal hlavne počas I. a II. svetovej vojny, keď sa šifrovanie "
+               + "stalo veľmi dôležitou disciplínou. Medzi najvýznamnejšie "
+               + "šifrovacie prístroje tej doby patrila Enigma, ktorá bola používaná"
+               + " Nemcami počas druhej svetovej vojny a dlhý čas predstavovala skutočne"
+               + " „tvrdý oriešok“. Nemci verili, že táto šifra je bez kľúča neprelomiteľná."
+               + " Šifru však prelomili poľskí matematici Marian Rejewski, Henrik Zygalski a "
+               + "britský matematik Alan Turing. Kód bol prelomený predovšetkým vďaka práci poľských "
+               + "matematikov Mariana Rejewskiho a Henrika Zygalskiho. V roku 1932 Rejewski rozkódoval "
+               + "jeden z jednoduchších typov Enigmy. Bez jeho práce, by aj Alanovi "
+               + "Turingovi, trvalo rozkodovanie enigmy „priveľmi“ dlho a stalo by to "
+               + "mnoho spojeneckých životov. Novší typ Enigmy (tzv. ponorková Enigma)"
+               + " bola rozkódovaná aj vďaka šťastnej náhode, keď bola zajatá nemecká ponorka,"
+               + " ktorá mala na svojej palube jeden prístroj Enigma. Skôr, ako ju Nemci stihli "
+               + "zničiť sa dostala do rúk Angličanom a tí konečne rozlúštili "
+               + "„záhadu neprelomiteľného kódu“ šifrovacieho stroja Enigma.";
+       
+        OT_Svk = Text.convertToTSA(OT_Svk, false);
+        //System.out.println(OT_Svk);
+        Map<String, Double> ngram = TextStatistics.readNgram(OT_Svk, 1, true);
+        for(Map.Entry e: ngram.entrySet())
+        {
+            System.out.println(e.getKey() + " " + e.getValue());
+        }
     }
 
 }
