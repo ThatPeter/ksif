@@ -48,7 +48,7 @@ public class TranspozitionCipher implements Cipher {
         return convertMapToString(newBlocks, rows);
     }
     
-    Map<Integer, String> transformToMap(String input, int rows, int blockSize)
+    static Map<Integer, String> transformToMap(String input, int rows, int blockSize)
     {
         Map<Integer, String> blocks = new HashMap<>();// na kazdom vstupe je STLPEC
         int subindex;
@@ -68,7 +68,7 @@ public class TranspozitionCipher implements Cipher {
         return blocks;
     }
     
-    Map<Integer, String> applyPermutation(Map<Integer, String> blocks, int rows, Integer[] perm)
+    static Map<Integer, String> applyPermutation(Map<Integer, String> blocks, int rows, Integer[] perm)
     {
         Map<Integer, String> newBlocks = new HashMap<>();
         int i = 0;
@@ -81,7 +81,7 @@ public class TranspozitionCipher implements Cipher {
         return newBlocks;
     }
     
-    String convertMapToString(Map<Integer, String> newBlocks, int rows)
+    static String convertMapToString(Map<Integer, String> newBlocks, int rows)
     {
         StringBuilder utilStr = new StringBuilder();
         String output = "";

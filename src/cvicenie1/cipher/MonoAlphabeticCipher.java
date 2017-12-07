@@ -14,27 +14,33 @@ import cvicenie1.crypto.Key;
  */
 public class MonoAlphabeticCipher implements Cipher {
     
-    public String encrypt(String pt, Key k){
-        pt = pt.toLowerCase();
- 
-        StringBuilder str = new StringBuilder();
-        MonoAlphabeticKey key = (MonoAlphabeticKey) k;
-        int i = 0;
-        for (char c : pt.toCharArray()) {
-            str.append(key.encKey[c - 'a']);
+    
+    public String encrypt(String pt, Key k) {
+        
+        if (!(k instanceof MonoAlphabeticKey)) {
+            throw new IllegalArgumentException("Vstupom musí byť inštancia MonoalphabeticKey");
         }
-        
-        return str.toString();
-    }
-    
-    public String decrypt(String ct, Key k){
-        StringBuilder str = new StringBuilder();
-        MonoAlphabeticKey key = (MonoAlphabeticKey) k;
-        
-        for (char c : ct.toCharArray())
-            str.append(key.decKey[c - 'a']);
-        
-        return str.toString();
-    }
-    
+       
+        MonoAlphabeticKey mk = (MonoAlphabeticKey) k;
+
+        StringBuilder ct = new StringBuilder();
+            for (char c : pt.toCharArray()) {
+               ct.append(mk.encKey[c - 'a']);
+            }
+            return ct.toString();
+        }
+
+
+    public String decrypt(String ct, Key k) {
+        if (!(k instanceof MonoAlphabeticKey)) {
+            throw new IllegalArgumentException("Vstupom musí byť inštancia MonoalphabeticKey");
+        }
+        MonoAlphabeticKey mk = (MonoAlphabeticKey) k;
+
+        StringBuilder pt = new StringBuilder();
+        for (char c : ct.toCharArray()) {
+            pt.append(mk.decKey[c - 'a']);
+        }
+        return pt.toString();
+    } 
 }
