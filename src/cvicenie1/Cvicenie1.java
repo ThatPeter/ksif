@@ -524,9 +524,9 @@ public class Cvicenie1 {
         
         System.out.println();
         
-        System.out.println("Svk ZT entropy Mono: " + EntropyZTGerMono);
-        System.out.println("Svk ZT entropy Poly: " + EntropyZTGerPoly);
-        System.out.println("Svk ZT entropy Trans: " + EntropyZTGerTrans);
+        System.out.println("Ger ZT entropy Mono: " + EntropyZTGerMono);
+        System.out.println("Ger ZT entropy Poly: " + EntropyZTGerPoly);
+        System.out.println("Ger ZT entropy Trans: " + EntropyZTGerTrans);
         
         System.out.println();
         
