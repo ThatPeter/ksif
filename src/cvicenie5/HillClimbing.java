@@ -7,7 +7,9 @@ public class HillClimbing {
     BigramFitness fitness;
     Cipher cipher;
     String ct;
-
+    int numberOfClimbs;
+    int numOfIterations;
+    
     public HillClimbing(String ct, Cipher cipher, Key k) {
         fitness = new BigramFitness();
         this.cipher = cipher;
@@ -17,6 +19,25 @@ public class HillClimbing {
         k.setScore(score);
     }
 
+    public HillClimbing(String ct, Cipher cipher, Key k, int numofclimbs, int numOfIterations) {
+        fitness = new BigramFitness();
+        this.cipher = cipher;
+        this.ct = ct;
+        state = k;
+        double score = fitness.evaluate(state, cipher, ct);
+        k.setScore(score);
+        this.numberOfClimbs = numofclimbs;
+        this.numOfIterations = numOfIterations;
+    }
+    
+    public void start()
+    {
+        for(int i = 0; i < numberOfClimbs; i++)
+        {
+            start(this.numOfIterations);
+        }
+    }
+    
     public void start(int iterations) {
         for (int i = 0; i < iterations; i++) {
             Key candidate = state.changeKey();
