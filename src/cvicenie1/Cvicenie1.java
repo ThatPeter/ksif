@@ -22,6 +22,8 @@ import cvicenie1.cipher.PolyAlphabeticCipher.*;
 import cvicenie1.helpers.TextStatistics.*;
 import cvicenie1.helpers.Language.*;
 
+import cvicenie5.Cryptosystem;
+
 import java.util.Map;
 import java.util.HashMap;
 
@@ -535,6 +537,10 @@ public class Cvicenie1 {
         System.out.println("Rnd ZT entropy Trans: " + EntropyZTRndTrans);
         
         System.out.println();
+        
+       System.out.println(Cryptosystem.guess(ZT_GerMono));
+        
+        
     }
     
     static String randomText(int length)
