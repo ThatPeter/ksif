@@ -21,11 +21,15 @@ import cvicenie1.cipher.PolyAlphabeticKey.*;
 import cvicenie1.cipher.PolyAlphabeticCipher.*;
 import cvicenie1.helpers.TextStatistics.*;
 import cvicenie1.helpers.Language.*;
-
+import cvicenie5.BigramFitness;
+import cvicenie5.Node;
 import cvicenie5.Cryptosystem;
-
+import java.util.TreeMap;
 import java.util.Map;
 import java.util.HashMap;
+import java.util.List;
+import cvicenie5.HillClimbing;
+
 
 public class Cvicenie1 {
 
@@ -540,6 +544,57 @@ public class Cvicenie1 {
         
        System.out.println(Cryptosystem.guess(ZT_GerMono));
         
+        String ZT1 = "earnasubylitutsoncitherpisthawaesceciprarinehichhwchlaetertetheniainlpxtwetrepsacedalaleybersttefimodnuexerobmosipfonsitrthufdowreheatnhabplsueteniuoteporssthtrjultascauiaruseditesthaiwifthsthrfotoceemunmoatecithhiwgensialsrexxxxx";
+        String ZT2 = "mhjmxlbvdovqnqdqnghwneujxzmvqujwmjvmxwneujxnhzunwujmwuljqqjxnhqujelmnhqjfqzmvxjelmwjcobmljqqjxvgyjanfjchdyojxgaegvnqnghvadxqujxcgzhqujmleumojqvdjqghndvxjegxqvqumqidlndvwmjvmxdvjcnqznqumvunaqgaquxjjqgwgyydhnwmqjznquunvkjhjxmlv";
+        String ZT3 = "svjrrdgxlbkbnkulqtecaxmvroixkhwkfvsszhzpzmwznopnthwihylwbyvravyyehtfznlmckwsawvpdihvdtgfcelbjisgujwipmieuejjioxxtjilqtesxcwkhwzifwfbmvadxmrbwbxlelwszukzjgojbxkhsbollacxtawafiukmiztoqyyakpnwtgnyyrwmyfcgurlnakfkeoqyyhaalvnwzfcspfcox";
+       
+         
+        String ZT4 = "svjrjtdjmjxkabzkawstaxmvjefjlpjtsmxrjkngzmwzfemzupjrupqvlbjiavyywxqravyvpbbrkzjgdihvvjdrdmykwzxfemkzpmiemugvjwkggankawsjxcwkzmwugeskzmfchpfswbxlwbteacxiwxtilayysboldqzjuijjszzjwlnkoqyysamzxbtwlpwvwbttgurlfqhrlmbzlpmzkojewzfck";
+        int guessedKeyLength = 4;
+        Set<Character[]> kSet = new HashSet<>();
+        allPasswords(0, guessedKeyLength, new Character[guessedKeyLength], kSet);
+        //
+        BigramFitness fit = new BigramFitness();
+        List<String> words = Node.readDictionaryWords("dictionary_5000.txt");
+        Node root = Node.loadDictionary(words);
+        //
+        TreeMap<Double, String> resultsBigrams = new TreeMap<>();
+        TreeMap<Double, String> resultsDictionary = new TreeMap<>();
+
+        PolyAlphabeticCipher vc = new PolyAlphabeticCipher();
+        for (Character[] k : kSet) {
+            String str = "";
+            int i = 0;
+            for(Character ch : k){str+=ch.charValue();i++;}
+            PolyAlphabeticKey vk = new PolyAlphabeticKey(str.toCharArray());
+            String OTc = vc.decrypt(ZT4, vk);
+            double evaluate = fit.evaluate(OTc);
+            resultsBigrams.put(evaluate, OTc);
+            evaluate = root.evaluate(OTc, 2, 10);
+            resultsDictionary.put(evaluate, OTc);
+        }
+        System.out.println("2-gram: " + resultsBigrams.firstEntry().getValue());
+        System.out.println("Slovnik: " + resultsDictionary.lastEntry().getValue());
+        
+        
+        Character abc[] = new Character[26];
+        for (int i = 0; i < abc.length; i++) {
+            abc[i] = (char) (i + 'a');
+        }
+
+        for (int i = 0; i < 10; i++) {
+            MonoAlphabeticKey mk = new MonoAlphabeticKey(abc);
+            HillClimbing hc = new HillClimbing(ZT2, new MonoAlphabeticCipher(), mk.randomKey());
+            hc.start(10000);
+        }
+        
+        for (int i = 0; i < 10; i++) {
+            char[] password = {'a', 'h', 'o', 'j'};
+            //Permutations.rndPerm(perm);
+            PolyAlphabeticKey mk = new PolyAlphabeticKey (password);
+            HillClimbing hc = new HillClimbing(ZT2, new PolyAlphabeticCipher(), mk.randomKey());
+            hc.start(10000);
+        }
         
     }
     
@@ -555,6 +610,17 @@ public class Cvicenie1 {
         }
         
         return sb.toString();
+    }
+    
+      private static void allPasswords(int level, int maxLevel, Character[] pwd, Set<Character[]> results) {
+        if (level == maxLevel) {
+            results.add(pwd.clone());
+        } else {
+            for (int i = 0; i < 26; i++) {
+                pwd[level] = (char) (i + 'a');
+                allPasswords(level + 1, maxLevel, pwd, results);
+            }
+        }
     }
 }
 
